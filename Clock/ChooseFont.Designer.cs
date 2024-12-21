@@ -37,6 +37,7 @@ namespace Clock
             this.labelExample = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.btnApply = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudFontSize)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,10 +49,21 @@ namespace Clock
             this.cbFonts.Name = "cbFonts";
             this.cbFonts.Size = new System.Drawing.Size(341, 21);
             this.cbFonts.TabIndex = 0;
+            this.cbFonts.SelectedIndexChanged += new System.EventHandler(this.cbFonts_SelectedIndexChanged);
             // 
             // nudFontSize
             // 
             this.nudFontSize.Location = new System.Drawing.Point(390, 26);
+            this.nudFontSize.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudFontSize.Minimum = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
             this.nudFontSize.Name = "nudFontSize";
             this.nudFontSize.Size = new System.Drawing.Size(76, 20);
             this.nudFontSize.TabIndex = 1;
@@ -61,6 +73,7 @@ namespace Clock
             0,
             0,
             0});
+            this.nudFontSize.ValueChanged += new System.EventHandler(this.nudFontSize_ValueChanged);
             // 
             // labelChooseFont
             // 
@@ -109,12 +122,24 @@ namespace Clock
             this.btnOK.TabIndex = 6;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(390, 53);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(75, 23);
+            this.btnApply.TabIndex = 7;
+            this.btnApply.Text = "Apply";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // ChooseFontForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 260);
+            this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.labelExample);
@@ -141,5 +166,6 @@ namespace Clock
         private System.Windows.Forms.Label labelExample;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnApply;
     }
 }

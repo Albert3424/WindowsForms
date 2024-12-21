@@ -33,6 +33,7 @@ namespace Clock
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.labelTime = new System.Windows.Forms.Label();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmShowControls = new System.Windows.Forms.ToolStripMenuItem();
             this.cmTopmost = new System.Windows.Forms.ToolStripMenuItem();
             this.showDateToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.cmShowDate = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +50,8 @@ namespace Clock
             this.cbShowWeekDay = new System.Windows.Forms.CheckBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmShowControls = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmChooseFont = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmShowConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,11 +77,21 @@ namespace Clock
             this.cmShowDate,
             this.cmShowWeekDay,
             this.toolStripSeparator1,
+            this.cmChooseFont,
             this.cmColors,
             this.toolStripSeparator2,
-            this.cmExit});
+            this.cmExit,
+            this.cmShowConsole});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(181, 176);
+            this.contextMenu.Size = new System.Drawing.Size(181, 220);
+            // 
+            // cmShowControls
+            // 
+            this.cmShowControls.CheckOnClick = true;
+            this.cmShowControls.Name = "cmShowControls";
+            this.cmShowControls.Size = new System.Drawing.Size(180, 22);
+            this.cmShowControls.Text = "Show controls";
+            this.cmShowControls.CheckedChanged += new System.EventHandler(this.cmShowControls_CheckedChanged);
             // 
             // cmTopmost
             // 
@@ -204,13 +216,20 @@ namespace Clock
             this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem1.Text = "Colors";
             // 
-            // cmShowControls
+            // cmChooseFont
             // 
-            this.cmShowControls.CheckOnClick = true;
-            this.cmShowControls.Name = "cmShowControls";
-            this.cmShowControls.Size = new System.Drawing.Size(180, 22);
-            this.cmShowControls.Text = "Show controls";
-            this.cmShowControls.CheckedChanged += new System.EventHandler(this.cmShowControls_CheckedChanged);
+            this.cmChooseFont.Name = "cmChooseFont";
+            this.cmChooseFont.Size = new System.Drawing.Size(180, 22);
+            this.cmChooseFont.Text = "Choose font";
+            this.cmChooseFont.Click += new System.EventHandler(this.cmChooseFont_Click);
+            // 
+            // cmShowConsole
+            // 
+            this.cmShowConsole.CheckOnClick = true;
+            this.cmShowConsole.Name = "cmShowConsole";
+            this.cmShowConsole.Size = new System.Drawing.Size(180, 22);
+            this.cmShowConsole.Text = "Show console";
+            this.cmShowConsole.CheckedChanged += new System.EventHandler(this.cmShowConsole_CheckedChanged);
             // 
             // MainForm
             // 
@@ -253,6 +272,8 @@ namespace Clock
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem cmShowControls;
+        private System.Windows.Forms.ToolStripMenuItem cmChooseFont;
+        private System.Windows.Forms.ToolStripMenuItem cmShowConsole;
     }
 }
 
