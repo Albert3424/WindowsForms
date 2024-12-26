@@ -43,6 +43,8 @@
 			this.cmColors = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmBackColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmForeColor = new System.Windows.Forms.ToolStripMenuItem();
+			this.gToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+			this.cmLoadOnWinStartup = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmExit = new System.Windows.Forms.ToolStripMenuItem();
 			this.timer = new System.Windows.Forms.Timer(this.components);
@@ -50,8 +52,8 @@
 			this.btnHideControls = new System.Windows.Forms.Button();
 			this.cbShowWeekDay = new System.Windows.Forms.CheckBox();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.cmLoadOnWinStartup = new System.Windows.Forms.ToolStripMenuItem();
-			this.gToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+			this.gh = new System.Windows.Forms.ToolStripSeparator();
+			this.cmAlarms = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -82,12 +84,14 @@
             this.toolStripSeparator3,
             this.cmChooseFont,
             this.cmColors,
+            this.gh,
+            this.cmAlarms,
             this.gToolStripMenuItem,
             this.cmLoadOnWinStartup,
             this.toolStripSeparator2,
             this.cmExit});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(213, 226);
+			this.contextMenu.Size = new System.Drawing.Size(213, 276);
 			// 
 			// cmTopmost
 			// 
@@ -169,6 +173,18 @@
 			this.cmForeColor.Text = "Foreground color";
 			this.cmForeColor.Click += new System.EventHandler(this.SetColor);
 			// 
+			// gToolStripMenuItem
+			// 
+			this.gToolStripMenuItem.Name = "gToolStripMenuItem";
+			this.gToolStripMenuItem.Size = new System.Drawing.Size(209, 6);
+			// 
+			// cmLoadOnWinStartup
+			// 
+			this.cmLoadOnWinStartup.CheckOnClick = true;
+			this.cmLoadOnWinStartup.Name = "cmLoadOnWinStartup";
+			this.cmLoadOnWinStartup.Size = new System.Drawing.Size(212, 22);
+			this.cmLoadOnWinStartup.Text = "Load On Windows Startup";
+			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -191,7 +207,7 @@
 			this.cbShowDate.AutoSize = true;
 			this.cbShowDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.cbShowDate.Location = new System.Drawing.Point(11, 87);
-			this.cbShowDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.cbShowDate.Margin = new System.Windows.Forms.Padding(2);
 			this.cbShowDate.Name = "cbShowDate";
 			this.cbShowDate.Size = new System.Drawing.Size(179, 30);
 			this.cbShowDate.TabIndex = 1;
@@ -203,7 +219,7 @@
 			// 
 			this.btnHideControls.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.btnHideControls.Location = new System.Drawing.Point(11, 169);
-			this.btnHideControls.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnHideControls.Margin = new System.Windows.Forms.Padding(2);
 			this.btnHideControls.Name = "btnHideControls";
 			this.btnHideControls.Size = new System.Drawing.Size(168, 64);
 			this.btnHideControls.TabIndex = 2;
@@ -216,7 +232,7 @@
 			this.cbShowWeekDay.AutoSize = true;
 			this.cbShowWeekDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.cbShowWeekDay.Location = new System.Drawing.Point(11, 124);
-			this.cbShowWeekDay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.cbShowWeekDay.Margin = new System.Windows.Forms.Padding(2);
 			this.cbShowWeekDay.Name = "cbShowWeekDay";
 			this.cbShowWeekDay.Size = new System.Drawing.Size(262, 30);
 			this.cbShowWeekDay.TabIndex = 3;
@@ -232,17 +248,17 @@
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
 			// 
-			// cmLoadOnWinStartup
+			// gh
 			// 
-			this.cmLoadOnWinStartup.CheckOnClick = true;
-			this.cmLoadOnWinStartup.Name = "cmLoadOnWinStartup";
-			this.cmLoadOnWinStartup.Size = new System.Drawing.Size(212, 22);
-			this.cmLoadOnWinStartup.Text = "Load On Windows Startup";
+			this.gh.Name = "gh";
+			this.gh.Size = new System.Drawing.Size(209, 6);
 			// 
-			// gToolStripMenuItem
+			// cmAlarms
 			// 
-			this.gToolStripMenuItem.Name = "gToolStripMenuItem";
-			this.gToolStripMenuItem.Size = new System.Drawing.Size(209, 6);
+			this.cmAlarms.Name = "cmAlarms";
+			this.cmAlarms.Size = new System.Drawing.Size(212, 22);
+			this.cmAlarms.Text = "Alarms";
+			this.cmAlarms.Click += new System.EventHandler(this.cmAlarm_Click);
 			// 
 			// MainForm
 			// 
@@ -255,7 +271,7 @@
 			this.Controls.Add(this.labelTime);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Clock PV_319";
@@ -289,5 +305,7 @@
 		private System.Windows.Forms.ToolStripMenuItem cmShowConsole;
 		private System.Windows.Forms.ToolStripSeparator gToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem cmLoadOnWinStartup;
+		private System.Windows.Forms.ToolStripSeparator gh;
+		private System.Windows.Forms.ToolStripMenuItem cmAlarms;
 	}
 }
