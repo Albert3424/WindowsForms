@@ -37,6 +37,8 @@ namespace Clock
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnFile = new System.Windows.Forms.Button();
 			this.clbWeekDays = new System.Windows.Forms.CheckedListBox();
+			this.rtbMessage = new System.Windows.Forms.RichTextBox();
+			this.lblMessage = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// cbUseDate
@@ -75,7 +77,7 @@ namespace Clock
 			// lblAlarmTime
 			// 
 			this.lblAlarmTime.AutoSize = true;
-			this.lblAlarmTime.Location = new System.Drawing.Point(10, 140);
+			this.lblAlarmTime.Location = new System.Drawing.Point(10, 193);
 			this.lblAlarmTime.Name = "lblAlarmTime";
 			this.lblAlarmTime.Size = new System.Drawing.Size(26, 13);
 			this.lblAlarmTime.TabIndex = 3;
@@ -110,6 +112,7 @@ namespace Clock
 			this.btnFile.TabIndex = 6;
 			this.btnFile.Text = "Choose file";
 			this.btnFile.UseVisualStyleBackColor = true;
+			this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
 			// 
 			// clbWeekDays
 			// 
@@ -130,11 +133,30 @@ namespace Clock
 			this.clbWeekDays.Size = new System.Drawing.Size(420, 19);
 			this.clbWeekDays.TabIndex = 7;
 			// 
+			// rtbMessage
+			// 
+			this.rtbMessage.Location = new System.Drawing.Point(13, 144);
+			this.rtbMessage.Name = "rtbMessage";
+			this.rtbMessage.Size = new System.Drawing.Size(420, 46);
+			this.rtbMessage.TabIndex = 8;
+			this.rtbMessage.Text = "";
+			// 
+			// lblMessage
+			// 
+			this.lblMessage.AutoSize = true;
+			this.lblMessage.Location = new System.Drawing.Point(13, 125);
+			this.lblMessage.Name = "lblMessage";
+			this.lblMessage.Size = new System.Drawing.Size(89, 13);
+			this.lblMessage.TabIndex = 9;
+			this.lblMessage.Text = "Write a message:";
+			// 
 			// AddAlarmForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(439, 255);
+			this.Controls.Add(this.lblMessage);
+			this.Controls.Add(this.rtbMessage);
 			this.Controls.Add(this.clbWeekDays);
 			this.Controls.Add(this.btnFile);
 			this.Controls.Add(this.btnCancel);
@@ -161,5 +183,7 @@ namespace Clock
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Button btnFile;
 		private System.Windows.Forms.CheckedListBox clbWeekDays;
+		private System.Windows.Forms.RichTextBox rtbMessage;
+		private System.Windows.Forms.Label lblMessage;
 	}
 }
