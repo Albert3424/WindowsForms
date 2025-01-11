@@ -24,6 +24,15 @@ namespace Clock
 				if (days[i]) week |= (byte)(1 << i);
 			}
 		}
+		public bool[] ExtractWeekDays()
+		{
+			bool[] weekDays = new bool[7];
+			for(byte i = 0; i < 7; i++)
+			{
+				weekDays[i] = (week & (byte)(1 << i)) != 0;
+			}
+			return weekDays;
+		}
 		public override string ToString()
 		{
 			string weekdays = "";
