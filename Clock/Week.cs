@@ -12,36 +12,54 @@ namespace Clock
 		{
 			"Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"
 		};
+
 		byte week;
+		public Week()
+		{
+			week = 127;
+		}
+
 		public Week(bool[] days)
 		{
 			CompressWeekDays(days);
 		}
+
 		public void CompressWeekDays(bool[] days)
 		{
-			for( byte i = 0; i < days.Length; i++)
+			for (byte i = 0; i < days.Length; i++)
 			{
 				if (days[i]) week |= (byte)(1 << i);
 			}
 		}
-		public bool[] ExtractWeekDays()
+
+		public bool[] ExtractWeekdays()
 		{
 			bool[] weekDays = new bool[7];
-			for(byte i = 0; i < 7; i++)
+			for (byte i = 0; i < 7; i++)
 			{
 				weekDays[i] = (week & (byte)(1 << i)) != 0;
 			}
 			return weekDays;
 		}
+
+		public bool Contains(DayOfWeek day)
+		{
+			int i_day = (int)day;
+			i_day -= 1;
+			if (i_day == -1) i_day = 6;
+			return (week & (1 << i_day)) != 0;
+		}
+
 		public override string ToString()
 		{
 			string weekdays = "";
-			for(int i = 0; i < Weekdays.Length; i++)
+			for (byte i = 0; i < Weekdays.Length; i++)
 			{
-				if (((1 << i) & week) != 0) 
+				if (((1 << i) & week) != 0)
 					weekdays += $"{Weekdays[i]},";
 			}
 			return weekdays;
+
 		}
 	}
 }

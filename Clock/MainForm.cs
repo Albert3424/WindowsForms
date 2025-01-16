@@ -19,7 +19,6 @@ namespace Clock
 		ChooseFontForm fontDialog = null;
 		AlarmsForm alarms = null;
 		Alarm nextAlarm = null;
-
 		public MainForm()
 		{
 			InitializeComponent();
@@ -29,10 +28,9 @@ namespace Clock
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
 			SetVisibility(false);
 
-			cmShowConsole.Checked = true;
 			LoadSettings();
-			//fontDialog = new ChooseFontForm();	
 			alarms = new AlarmsForm();
+			axWindowsMediaPlayer.Visible = false;
 		}
 
 		void SetVisibility(bool visible)
@@ -58,7 +56,9 @@ namespace Clock
 			sw.WriteLine($"{fontDialog.Filename}");
 			sw.WriteLine($"{labelTime.Font.Size}");
 			sw.Close();
+			//Process.Start("notepad", "Settings.ini");
 		}
+
 		void LoadSettings()
 		{
 			string execution_path = Path.GetDirectoryName(Application.ExecutablePath);
@@ -72,20 +72,45 @@ namespace Clock
 			labelTime.BackColor = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
 			labelTime.ForeColor = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
 			string font_name = sr.ReadLine();
-			int font_size = (int)Convert.ToDouble(sr.ReadLine());
+			int font_size = Convert.ToInt32(sr.ReadLine());
 			sr.Close();
 			fontDialog = new ChooseFontForm(this, font_name, font_size);
 			labelTime.Font = fontDialog.Font;
 		}
+
 		Alarm FindNextAlarm()
 		{
-			Alarm[] actualAlarms = alarms.LB_Alarms.Items.Cast<Alarm>().Where(a => a.Time > DateTime.Now.TimeOfDay).ToArray();
+			Alarm[] actualAlarms =
+				alarms.
+				LB_Alarms.
+				Items.Cast<Alarm>().
+				Where(a => a.Time > DateTime.Now.TimeOfDay).
+				ToArray();
+			//Alarm nextAlarm = new Alarm(actualAlarms.Min());			
+			//return nextAlarm;
 			return actualAlarms.Min();
+		}
+
+		bool CompareDates(DateTime date1, DateTime date2)
+		{
+			return date1.Year == date2.Year && date1.Month == date2.Month && date1.Date == date2.Date;
+		}
+
+		void PlayAlarm()
+		{
+			axWindowsMediaPlayer.URL = nextAlarm.Filename;
+			axWindowsMediaPlayer.settings.volume = 100;
+			axWindowsMediaPlayer.Ctlcontrols.play();
+			axWindowsMediaPlayer.Visible = true;
 		}
 
 		private void timer_Tick(object sender, EventArgs e)
 		{
-			labelTime.Text = DateTime.Now.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
+			labelTime.Text = DateTime.Now.ToString
+				(
+				"hh:mm:ss tt",
+				System.Globalization.CultureInfo.InvariantCulture
+				);
 
 			if (cbShowDate.Checked)
 			{
@@ -99,7 +124,27 @@ namespace Clock
 			}
 			notifyIcon.Text = labelTime.Text;
 
-			if(alarms.LB_Alarms.Items.Count > 0) nextAlarm = alarms.LB_Alarms.Items.Cast<Alarm>().ToArray().Min();
+
+			if (
+				(object)nextAlarm != null &&
+				(
+				nextAlarm.Date == DateTime.MinValue ?
+				nextAlarm.Weekdays.Contains(DateTime.Now.DayOfWeek) :
+				CompareDates(nextAlarm.Date, DateTime.Now)
+				) &&
+				//nextAlarm.Weekdays.Contains(DateTime.Now.DayOfWeek) &&
+				nextAlarm.Time.Hours == DateTime.Now.Hour &&
+				nextAlarm.Time.Minutes == DateTime.Now.Minute &&
+				nextAlarm.Time.Seconds == DateTime.Now.Second
+				)
+			{
+				System.Threading.Thread.Sleep(1000);
+				PlayAlarm();
+				//MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				nextAlarm = null;
+			}
+
+			if (alarms.LB_Alarms.Items.Count > 0) nextAlarm = FindNextAlarm();//nextAlarm = alarms.LB_Alarms.Items.Cast<Alarm>().ToArray().Min();
 			if (nextAlarm != null) Console.WriteLine(nextAlarm);
 		}
 
@@ -113,7 +158,6 @@ namespace Clock
 			SetVisibility(cmShowControls.Checked = true);
 		}
 
-
 		private void cmExit_Click(object sender, EventArgs e)
 		{
 			this.Close();
@@ -123,6 +167,7 @@ namespace Clock
 		{
 			this.TopMost = cmTopmost.Checked;
 		}
+
 		private void cbShowDate_CheckedChanged(object sender, EventArgs e)
 		{
 			cmShowDate.Checked = cbShowDate.Checked;
@@ -192,8 +237,10 @@ namespace Clock
 
 		}
 		[DllImport("kernel32.dll")]
+
 		public static extern bool AllocConsole();
 		[DllImport("kernel32.dll")]
+
 		public static extern bool FreeConsole();
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -213,7 +260,7 @@ namespace Clock
 		private void cmAlarm_Click(object sender, EventArgs e)
 		{
 			alarms.StartPosition = FormStartPosition.Manual;
-			alarms.Location = new Point(this.Location.X - alarms.Width, this.Location.Y);
+			alarms.Location = new Point(this.Location.X - alarms.Width, this.Location.Y * 2);
 			alarms.ShowDialog();
 		}
 	}
