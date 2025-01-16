@@ -28,7 +28,9 @@ namespace Clock
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
 			SetVisibility(false);
 
+			cmShowConsole.Checked = true;
 			LoadSettings();
+			//fontDialog = new ChooseFontForm();	
 			alarms = new AlarmsForm();
 			axWindowsMediaPlayer.Visible = false;
 		}
@@ -94,6 +96,15 @@ namespace Clock
 		bool CompareDates(DateTime date1, DateTime date2)
 		{
 			return date1.Year == date2.Year && date1.Month == date2.Month && date1.Date == date2.Date;
+		}
+
+		void SetPlayerInvisible(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+		{
+			if (
+				axWindowsMediaPlayer.playState == WMPLib.WMPPlayState.wmppsMediaEnded ||
+				axWindowsMediaPlayer.playState == WMPLib.WMPPlayState.wmppsStopped
+				)
+				axWindowsMediaPlayer.Visible = false;
 		}
 
 		void PlayAlarm()
