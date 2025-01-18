@@ -14,9 +14,9 @@ namespace Clock
 		};
 
 		byte week;
-		public Week()
+		public Week(byte week = 127)
 		{
-			week = 127;
+			this.week = week;
 		}
 
 		public Week(bool[] days)
@@ -55,11 +55,16 @@ namespace Clock
 			string weekdays = "";
 			for (byte i = 0; i < Weekdays.Length; i++)
 			{
+				//byte day = 1;
 				if (((1 << i) & week) != 0)
 					weekdays += $"{Weekdays[i]},";
 			}
 			return weekdays;
+		}
 
+		public string ToFileString()
+		{
+			return week.ToString();
 		}
 	}
 }

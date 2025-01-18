@@ -36,15 +36,15 @@ namespace Clock
 			this.Message = other.Message;
 			Console.WriteLine($"CopyConstructor:{this.GetHashCode()}");
 		}
-		public override string ToString()
+		public string ToFileString()
 		{
 			string info = "";
-			if (Date != DateTime.MinValue) info += $"{Date}\t";
-			info += DateTime.Today.Add(Time).ToString("hh:mm:ss tt");
-			info += "\t";
-			info += $"{Weekdays}\t";
-			info += $"{Filename}\t";
-			info += $"{Message}\t";
+			if (Date != DateTime.MinValue) info += $"{Date.Ticks},";
+			info += $",{DateTime.Today.Add(Time).Ticks},";
+
+			info += $"{Weekdays.ToFileString()},";
+			info += $"{Filename},";
+			info += $"{Message},";
 			return info;
 		}
 
